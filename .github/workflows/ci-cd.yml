@@ -31,3 +31,8 @@ jobs:
           docker push ${{ secrets.DOCKER_USER }}/pagamentos:latest
           docker push ${{ secrets.DOCKER_USER }}/estoque:latest
           docker push ${{ secrets.DOCKER_USER }}/gateway:latest
+
+      - name: Debug Docker User
+        run: |
+          echo "DOCKER_USER=$DOCKER_USER"
+          echo "DOCKER_USER=${{ secrets.DOCKER_USER }}"
