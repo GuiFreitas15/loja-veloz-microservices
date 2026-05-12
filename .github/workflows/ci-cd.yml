@@ -12,6 +12,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Debug Docker User
+        run: |
+          echo "DOCKER_USER=$DOCKER_USER"
+          echo "DOCKER_USER=${{ secrets.DOCKER_USER }}"
+
       - name: Login DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
 
@@ -32,7 +37,4 @@ jobs:
           docker push ${{ secrets.DOCKER_USER }}/estoque:latest
           docker push ${{ secrets.DOCKER_USER }}/gateway:latest
 
-      - name: Debug Docker User
-        run: |
-          echo "DOCKER_USER=$DOCKER_USER"
-          echo "DOCKER_USER=${{ secrets.DOCKER_USER }}"
+    
