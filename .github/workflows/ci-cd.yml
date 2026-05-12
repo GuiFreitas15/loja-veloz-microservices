@@ -11,25 +11,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Build Docker images
-        run: |
-          docker build -t pedidos ./pedidos
-          docker build -t pagamentos ./pagamentos
-          docker build -t estoque ./estoque
-          docker build -t gateway ./gateway
-
-      - name: Run basic tests
-        run: echo "Testes executados com sucesso"
-
       - name: Login DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
 
-      - name: Tag images
+      - name: Build Docker images
         run: |
-          docker tag pedidos ${{ secrets.DOCKER_USER }}/pedidos:latest
-          docker tag pagamentos ${{ secrets.DOCKER_USER }}/pagamentos:latest
-          docker tag estoque ${{ secrets.DOCKER_USER }}/estoque:latest
-          docker tag gateway ${{ secrets.DOCKER_USER }}/gateway:latest
+          docker build -t ${{ secrets.DOCKER_USER }}/pedidos:latest ./pedidos
+          docker build -t ${{ secrets.DOCKER_USER }}/pagamentos:latest ./pagamentos
+          docker build -t ${{ secrets.DOCKER_USER }}/estoque:latest ./estoque
+          docker build -t ${{ secrets.DOCKER_USER }}/gateway:latest ./gateway
+
+      - name: Run basic tests
+        run: echo "Testes executados com sucesso"
 
       - name: Push images
         run: |
