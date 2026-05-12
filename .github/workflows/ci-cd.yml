@@ -24,5 +24,16 @@ jobs:
       - name: Login DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
 
+      - name: Tag images
+        run: |
+          docker tag pedidos ${{ secrets.DOCKER_USER }}/pedidos:latest
+          docker tag pagamentos ${{ secrets.DOCKER_USER }}/pagamentos:latest
+          docker tag estoque ${{ secrets.DOCKER_USER }}/estoque:latest
+          docker tag gateway ${{ secrets.DOCKER_USER }}/gateway:latest
+
       - name: Push images
-        run: echo "Simulação de push"
+        run: |
+          docker push ${{ secrets.DOCKER_USER }}/pedidos:latest
+          docker push ${{ secrets.DOCKER_USER }}/pagamentos:latest
+          docker push ${{ secrets.DOCKER_USER }}/estoque:latest
+          docker push ${{ secrets.DOCKER_USER }}/gateway:latest
