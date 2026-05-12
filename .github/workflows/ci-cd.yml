@@ -17,12 +17,12 @@ jobs:
 
       - name: Build Docker images
         run: |
-          docker build -t ${{ secrets.DOCKER_USER }}/pedidos:latest ./pedidos
-          docker build -t ${{ secrets.DOCKER_USER }}/pagamentos:latest ./pagamentos
-          docker build -t ${{ secrets.DOCKER_USER }}/estoque:latest ./estoque
-          docker build -t ${{ secrets.DOCKER_USER }}/gateway:latest ./gateway
+          docker build ./pedidos -t ${{ secrets.DOCKER_USER }}/pedidos:latest
+          docker build ./pagamentos -t ${{ secrets.DOCKER_USER }}/pagamentos:latest
+          docker build ./estoque -t ${{ secrets.DOCKER_USER }}/estoque:latest
+          docker build ./gateway -t ${{ secrets.DOCKER_USER }}/gateway:latest
 
-      - name: Run basic tests
+      - name: Run tests
         run: echo "Testes executados com sucesso"
 
       - name: Push Docker images
